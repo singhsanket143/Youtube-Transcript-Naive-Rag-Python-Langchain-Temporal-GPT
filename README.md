@@ -40,6 +40,12 @@ Start backing services (Qdrant, Postgres, Temporal, Temporal UI):
 docker compose up -d
 ```
 
+Temporal loads payload limits from `temporal/dynamicconfig/docker.yaml`. After you change that file, recreate the Temporal container so it picks up the new config:
+
+```bash
+docker compose up -d temporal --force-recreate
+```
+
 Run the FastAPI app on the host:
 
 ```bash
