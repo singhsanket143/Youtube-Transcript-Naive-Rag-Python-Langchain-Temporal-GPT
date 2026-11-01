@@ -2,7 +2,7 @@ from fastapi import APIRouter, File, HTTPException, UploadFile
 from app.configs.settings import get_settings
 from app.schemas.api import DocumentBatchUploadResponse
 from app.services.ingestion_service import IngestionService
-from app.utils import get_logger, logger
+from app.utils import get_logger
 
 
 logger = get_logger(__name__)
