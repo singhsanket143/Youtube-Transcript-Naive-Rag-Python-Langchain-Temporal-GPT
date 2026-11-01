@@ -1,5 +1,5 @@
 
-from dataclasses import dataclass, Field
+from dataclasses import dataclass, field
 from datetime import timedelta
 from typing import Any
 
@@ -27,7 +27,7 @@ class BatchIngestProgress:
     files_total: int = 0
     files_completed: int = 0
     current_filename: str | None = None 
-    file_results: list[dict[str, Any]] = Field(default_factory=list)
+    file_results: list[dict[str, Any]] = field(default_factory=list)
 
 
 @workflow.defn(name="batch-ingestion-workflow")
