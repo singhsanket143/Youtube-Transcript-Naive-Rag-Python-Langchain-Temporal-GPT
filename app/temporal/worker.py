@@ -8,6 +8,7 @@ from app.temporal.activities.ingestion import (
     chunk_documents_activity,
     index_documents_activity,
     parse_documents_activity,
+    ingest_file_activity,
 )
 
 logger = get_logger(__name__)
@@ -26,6 +27,7 @@ async def main() -> None:
             parse_documents_activity,
             chunk_documents_activity,
             index_documents_activity,
+            ingest_file_activity,
         ]
     )
     logger.info(f"Temporal worker started for task queue: {settings.temporal_task_queue}")
