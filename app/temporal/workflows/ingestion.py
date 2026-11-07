@@ -1,4 +1,5 @@
 
+import asyncio
 from dataclasses import dataclass, field
 from datetime import timedelta
 from typing import Any
@@ -70,16 +71,17 @@ class BatchIngestionWorkflow:
             chunks_count = chunks["chunks_count"]
             chunks_path = chunks["chunks_path"]
 
-            indexed = 0
-
-            for start in range(0, chunks_count, batch_size):
-                count = await workflow.execute_activity(
+            index_tasks = [
+                workflow.execute_activity(
                     index_documents_from_jsonl_activity,
                     args=[chunks_path, start, batch_size],
                     start_to_close_timeout=timedelta(minutes=30),
                     heartbeat_timeout=timedelta(minutes=5),
                 )
-                indexed += count
+                for start in range(0, chunks_count, batch_size)
+            ]
+            batch_counts = await asyncio.gather(*index_tasks)
+            indexed = sum(batch_counts)
 
             # todo: write a cleanup activity to delete the parsed and chunks files
 

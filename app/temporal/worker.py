@@ -25,6 +25,7 @@ async def main() -> None:
     worker = Worker(
         client,
         task_queue=settings.temporal_task_queue,
+        max_concurrent_activities=5,
         workflows=[BatchIngestionWorkflow],
         activities=[
             parse_documents_activity,
