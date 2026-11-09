@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
 
-from app.controllers import document_controller, health_controller
+from app.controllers import document_controller, health_controller, query_controller
 from app.configs.settings import get_settings
 
 
@@ -15,6 +15,7 @@ app = FastAPI(
 
 app.include_router(health_controller.router)
 app.include_router(document_controller.router)
+app.include_router(query_controller.router)
 
 
 @app.get("/")
